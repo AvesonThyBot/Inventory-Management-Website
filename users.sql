@@ -40,10 +40,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_text`) VALUES
-(3, 'a', 'b', 'c@gmail.com', '$2y$10$8mrt1doYXwxMK8kkF.mgX.aEk13thcyZ6qwsOeluR3c1o.MWCaPVu'),
-(4, 'a', 'b', 'c@gmail.com', '$2y$10$jcJp2nCw8Zhq1GRdxUBfCOeYPHobLs0571x18ERg0ompnd3YffXTu'),
-(5, '2', '1', 'ajnkhdf@Gmail.com', '$2y$10$xL49y0Rs/9BUiO48.r4.xe4fCINczvYvsByYrjWf9hTosBSbtjRSe'),
-(6, '2', '1', 'ajnkhdf@Gmail.com', '$2y$10$oOvdS5ky6GgteQHgg62L7.UJbm1YYzVe8jdn46cCjG9RAXhdBWclm');
+(1, 'a', 'b', 'c@gmail.com', '$2y$10$8mrt1doYXwxMK8kkF.mgX.aEk13thcyZ6qwsOeluR3c1o.MWCaPVu'),
+(2, 'a', 'b', 'c@gmail.com', '$2y$10$jcJp2nCw8Zhq1GRdxUBfCOeYPHobLs0571x18ERg0ompnd3YffXTu'),
+(3, '2', '1', 'ajnkhdf@Gmail.com', '$2y$10$xL49y0Rs/9BUiO48.r4.xe4fCINczvYvsByYrjWf9hTosBSbtjRSe'),
+(4, '2', '1', 'ajnkhdf@Gmail.com', '$2y$10$oOvdS5ky6GgteQHgg62L7.UJbm1YYzVe8jdn46cCjG9RAXhdBWclm');
 
 --
 -- Indexes for dumped tables
