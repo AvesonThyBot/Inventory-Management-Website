@@ -61,7 +61,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/account.css">
-    <script src="javascripts/account.js"></script>
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
     <title>Register - Inventory</title>
 </head>
@@ -87,50 +86,53 @@
 			</div>
 		</div>
 	</nav>   
+
     <!-- Login section -->
     <section class="login-section" hidden>
-    <!-- Login Form -->
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Email Address</span>
-            <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Password</span>
-            <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" value="Login" name="btnLogin"/>
-        </div>
-    </form>
+        <!-- Login Form -->
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email Address</span>
+                <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+                <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Login" name="btnLogin"/>
+            </div>
+        </form>
     </section>
+
     <!-- Registry section -->
     <section class="register-section">
-    <!-- Registry Form -->
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">First Name</span>
-            <input type="text" class="form-control" placeholder="First name" aria-label="firstName" aria-describedby="basic-addon1" name="txtFirstName" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Last Name</span>
-            <input type="text" class="form-control" placeholder="Last name" aria-label="lastName" aria-describedby="basic-addon1" name="txtLastName" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Email Address</span>
-            <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Password</span>
-            <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
-        </div>
-        <div>
-            <input type="submit" class="btn btn-primary" value="Register" name="btnRegister"/>
-        </div>
-    </form>
+        <!-- Registry Form -->
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">First Name</span>
+                <input type="text" class="form-control" placeholder="First name" aria-label="firstName" aria-describedby="basic-addon1" name="txtFirstName" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Last Name</span>
+                <input type="text" class="form-control" placeholder="Last name" aria-label="lastName" aria-describedby="basic-addon1" name="txtLastName" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email Address</span>
+                <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+                <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Register" name="btnRegister"/>
+            </div>
+        </form>
     </section>
     
     <!-- Script -->
+    <script src="javascripts/account.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
