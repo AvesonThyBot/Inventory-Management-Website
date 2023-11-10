@@ -1,8 +1,8 @@
 <?php
-// send to account
-if (count($_COOKIE) <= 0) {
-        header("Location:account.php");
-    }
+    // send to account
+    if (count($_COOKIE) <= 0) {
+            header("Location:account.php");
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +42,8 @@ if (count($_COOKIE) <= 0) {
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end w-100 mw-100">
                         <?php if (isset($_COOKIE["is_logged_in"])) { ?>
+                            <li><p class="dropdown-item account-name">Name</p></li>
+                                <hr class="dropdown-divider" />
                             <li><a class="dropdown-item" href="account.php?type=logout">Log out</a></li>
                         <?php } else { ?>
                             <li><a class="dropdown-item" href="/account.php?type=login">Login</a></li>
@@ -55,7 +57,6 @@ if (count($_COOKIE) <= 0) {
             </div>
         </div>
     </nav>
-
 
     <!-- Catalogue Section -->
     <section class="catalogue-section">a</section>
