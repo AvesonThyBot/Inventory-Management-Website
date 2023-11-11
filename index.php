@@ -51,7 +51,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end w-100 mw-100">
                         <?php if (isset($_COOKIE["is_logged_in"])) { ?>
-                            <li><p class="dropdown-item account-name"><?php echo $row['first_name'];?></p></li>
+                            <li><p class="dropdown-item"><?php echo $row['first_name'];?></p></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
@@ -70,7 +70,15 @@
     </nav>
 
     <!-- Catalogue Section -->
-    <section class="catalogue-section text-danger">a</section>
+    <section class="catalogue-section">
+        <div class="product-list text-white">
+			<h2>Products</h2>
+			<div class="scroll-container">
+				<div class="scrollable-div product-box">
+                </div>
+			</div>
+		</div>
+    </section>
 
     <!-- Cart Section -->
     <section class="cart-section text-danger" hidden>b</section>
