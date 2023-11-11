@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".login-section").setAttribute("hidden", "hidden")
         document.querySelector(".register-section").removeAttribute("hidden", "hidden")
     }
-        // give active to correct class
-    if (webUrl == "register" || webUrl == "login" ){
+    // give active to correct class
+    if (webUrl == "login" || webUrl == "register" ){
         document.querySelectorAll(".navbar-sections").forEach(element => {
             element.classList.remove("active")
         });
-        document.querySelector(`.${webUrl}-navbar-section`).classList.add("active")
+        document.querySelector(`.navbar-${webUrl}`).classList.add("active")
     }
 })
