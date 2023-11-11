@@ -87,11 +87,11 @@
 	</nav>   
 
     <!-- Login section -->
-    <section class="login-section" hidden>
+    <section class="login-section sections" hidden>
         <!-- Login Form -->
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email Address</span>
+                <span class="input-group-text" id="basic-addon1">Email</span>
                 <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
             </div>
             <div class="input-group mb-3">
@@ -105,7 +105,7 @@
     </section>
 
     <!-- Registry section -->
-    <section class="register-section">
+    <section class="register-section sections">
         <!-- Registry Form -->
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="input-group mb-3">
@@ -117,7 +117,7 @@
                 <input type="text" class="form-control" placeholder="Last name" aria-label="lastName" aria-describedby="basic-addon1" name="txtLastName" required>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email Address</span>
+                <span class="input-group-text" id="basic-addon1">Email</span>
                 <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
             </div>
             <div class="input-group mb-3">

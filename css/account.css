@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.sections {
+  position: relative;
+  margin: 15% auto;
+  width: 80%;
+}
+
+.sections form {
+  width: 60%;
+  margin: auto;
+  height: auto;
+}
+.input-group-text {
+  width: clamp(100px, 100px, 100px);
+}
