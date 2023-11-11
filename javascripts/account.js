@@ -21,3 +21,4 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(`.navbar-${webUrl}`).classList.add("active")
     }
 })
+

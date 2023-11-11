@@ -31,8 +31,9 @@
 
     // Register
     if(isset($_POST['btnRegister'])){
-        $first_name = $_POST["txtFirstName"];
-        $last_name = $_POST["txtLastName"];
+        // Filter first name
+        $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
+        $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
         $email = $_POST["txtEmailAddress"];
         $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
         $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
@@ -50,14 +51,11 @@
 
 ?>
 
-<?php
-$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-$name = substr($name, 0, 20);  // Limit to 20 characters
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -81,7 +79,7 @@ $name = substr($name, 0, 20);  // Limit to 20 characters
 						<a class="nav-link navbar-sections navbar-login" href="?type=login" >Login</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link navbar-sections navbar-register" href="?type=register">Register</a>
+						<a class="nav-link navbar-sections navbar-register active" href="?type=register">Register</a>
 					</li>
 				</ul>
 			</div>
@@ -127,7 +125,7 @@ $name = substr($name, 0, 20);  // Limit to 20 characters
                 <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
             </div>
             <div>
-                <input type="submit" class="btn btn-primary" value="Register" name="btnRegister"/>
+                <input type="submit" class="btn btn-primary register-btn" value="Register" name="btnRegister"/>
             </div>
         </form>
     </section>
