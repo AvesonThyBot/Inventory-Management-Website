@@ -1,11 +1,12 @@
 <?php
     require "config/database.php";
 
-    // Login
+    // redirect to index
     if (count($_COOKIE) > 0) {
         header("Location:index.php");
     }
     
+    // Login
     if (isset($_POST["btnLogin"])) {
         $email = $_POST["txtEmailAddress"];
         $pass = $_POST["txtPassword"];
@@ -18,9 +19,8 @@
             $passHash = $row["password_text"];
     
             if (password_verify($pass, $passHash)) {
-                setcookie('email', $email, time() + (86400 * 30), "/"); // 86400 = 1 day
-    
-                setcookie('is_logged_in', true, time() + (86400 * 30), "/"); // 86400 = 1 day
+                setcookie('user_email', $email, time() + (86400 * 30), "/");
+                setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
     
                 header("Location:index.php");
             } else {
@@ -30,10 +30,6 @@
     } 
 
     // Register
-    if (count($_COOKIE) > 0) {
-        header("Location:index.php");
-    }
-    
     if(isset($_POST['btnRegister'])){
         $first_name = $_POST["txtFirstName"];
         $last_name = $_POST["txtLastName"];
@@ -46,13 +42,18 @@
     // Log out
     if (isset($_GET['type']) && $_GET['type'] == "logout"){
         setcookie('is_logged_in', false, time()-3600);
-        setcookie('email', "", time()-3600);
+        setcookie('user_email', "", time()-3600);
+        setcookie('user_id', "", time()-3600);
         header("Location:index.php");
         throw new Exception("No type in url");
     }
 
 ?>
 
+<?php
+$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+$name = substr($name, 0, 20);  // Limit to 20 characters
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
     <title>Register - Inventory</title>
 </head>
-<body>
+<body class="bg-dark">
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">

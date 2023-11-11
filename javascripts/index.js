@@ -13,4 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".catalogue-section").setAttribute("hidden", "hidden")
         document.querySelector(".cart-section").removeAttribute("hidden", "hidden")
     }
+    // give active to correct class
+    if (webUrl == "catalogue" || webUrl == "cart" ){
+        document.querySelectorAll(".navbar-sections").forEach(element => {
+            element.classList.remove("active")
+        });
+        document.querySelector(`.${webUrl}-navbar-section`).classList.add("active")
+    }
 })

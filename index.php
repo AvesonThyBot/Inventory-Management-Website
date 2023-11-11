@@ -14,9 +14,9 @@
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
     <title>Catalogue - Inventory</title>
 </head>
-<body>
+<body class="bg-dark">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark" >
         <div class="container-fluid">
             <img class="navbar-brand img-fluid" src="/images/inventory.png" style="height:50px;" alt="logo" draggable="false"/>
             <!-- Button when compressed -->
@@ -59,10 +59,10 @@
     </nav>
 
     <!-- Catalogue Section -->
-    <section class="catalogue-section">a</section>
+    <section class="catalogue-section text-danger">a</section>
 
     <!-- Cart Section -->
-    <section class="cart-section" hidden>b</section>
+    <section class="cart-section text-danger" hidden>b</section>
 
     <!-- Script -->
     <script src="javascripts/index.js"></script>
