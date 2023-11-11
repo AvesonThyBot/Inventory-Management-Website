@@ -1,9 +1,18 @@
 <?php
+    require "config/database.php";
+
     // send to account
     if (count($_COOKIE) <= 0) {
             header("Location:account.php");
         }
+    
+    // Get user data
+    $user_id = $_COOKIE['user_id'];
+    $sql = "SELECT * FROM users WHERE user_id = $user_id";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,8 +51,10 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end w-100 mw-100">
                         <?php if (isset($_COOKIE["is_logged_in"])) { ?>
-                            <li><p class="dropdown-item account-name">Name</p></li>
+                            <li><p class="dropdown-item account-name"><?php echo $row['first_name'];?></p></li>
+                            <li>
                                 <hr class="dropdown-divider" />
+                            </li>
                             <li><a class="dropdown-item" href="account.php?type=logout">Log out</a></li>
                         <?php } else { ?>
                             <li><a class="dropdown-item" href="/account.php?type=login">Login</a></li>

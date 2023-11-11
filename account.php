@@ -17,9 +17,9 @@
     
         while ($row = mysqli_fetch_assoc($result)){
             $passHash = $row["password_text"];
-    
+            $user_id = $row["user_id"];
             if (password_verify($pass, $passHash)) {
-                setcookie('user_email', $email, time() + (86400 * 30), "/");
+                setcookie('user_id', $user_id, time() + (86400 * 30), "/");
                 setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
     
                 header("Location:index.php");
@@ -43,7 +43,6 @@
     // Log out
     if (isset($_GET['type']) && $_GET['type'] == "logout"){
         setcookie('is_logged_in', false, time()-3600);
-        setcookie('user_email', "", time()-3600);
         setcookie('user_id', "", time()-3600);
         header("Location:index.php");
         throw new Exception("No type in url");
