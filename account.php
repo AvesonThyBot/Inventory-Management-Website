@@ -67,7 +67,7 @@ $name = substr($name, 0, 20);  // Limit to 20 characters
 </head>
 <body class="bg-dark">
 	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
 		<div class="container-fluid">
 			<img class="navbar-brand img-fluid" src="images/inventory.png" style="height:50px;" alt="logo" />
 			<!-- Button when compressed -->
