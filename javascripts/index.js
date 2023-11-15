@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-// ----------------------- Displaying Functions -----------------------
+// ----------------------- Main Functions -----------------------
 
 // Displaying products
 function productDisplay() {
@@ -34,10 +34,17 @@ function productDisplay() {
 			const productBox = document.querySelector(".catalogue-box");
 			productBox.textContent = "";
 			for (let index = 0; index < data.length; index++) {
-				productBox.innerHTML += `<div class="product-item"><img draggable="false" (dragstart)="false;" class="product-image rounded-top" src="${data[index].image}" alt="thumbnail image of product"/><span class="text-dark bg-white rounded-bottom">${data[index].title}</span></div>`;
+				productBox.innerHTML += `<div class="product-item ${index + 1}"><img draggable="false" (dragstart)="false;" class="product-info product-image rounded-top" src="${data[index].image}" alt="thumbnail image of product"/><span class="product-info text-dark bg-white">${data[index].title}</span><button type="button" class="btn btn-warning">Add 1 To Cart</button></div>`;
 			}
 		});
 }
-
+// Display certain product's details
+document.querySelectorAll(".product-info").forEach((item) => {
+	item.onclick = () => {
+		console.log("hi");
+		const productID = item.parentElement.classList[1];
+		console.log(productID);
+	};
+});
 // Display
 productDisplay();

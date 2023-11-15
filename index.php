@@ -69,13 +69,18 @@
     </nav>
 
     <!-- Catalogue Section -->
-    <section class="catalogue-section">
+    <section class="catalogue-section text-white">
+        <h1>Hello, <?php echo $row['first_name'];?></h1>
         <div class="product-list text-white">
 			<h2>Products</h2>
 			<div class="catalogue-box">
 			</div>
 		</div>
+
     </section>
+
+    <!-- Details Section -->
+    <section class="detail-section text-danger" hidden>c</section>
 
     <!-- Cart Section -->
     <section class="cart-section text-danger" hidden>b</section>

@@ -8,8 +8,11 @@ body::-webkit-scrollbar {
 }
 
 /* ------------------------ Main div ------------------------ */
+
+.catalogue-section h1 {
+	margin: 10px 55px;
+}
 .catalogue-box {
-	border: 1px solid black;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -20,7 +23,6 @@ body::-webkit-scrollbar {
 	row-gap: 20px;
 	overflow-x: hidden;
 }
-
 .product-item {
 	flex: 0 0 20%;
 	display: flex;
@@ -35,17 +37,26 @@ body::-webkit-scrollbar {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	margin: 0 auto;
+	user-select: none;
+	cursor: pointer;
 }
 
 .product-image {
 	width: 150px;
 	height: 200px;
 	margin: 0 auto;
+	cursor: pointer;
 }
 
 .product-list {
 	width: 95%;
 	padding: 10px;
 	margin: 10px auto;
-	overflow-x: scroll;
+}
+.btn {
+	width: 150px !important;
+	text-align: center !important;
+	margin: 0 auto;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
