@@ -31,10 +31,10 @@ function productDisplay() {
 		.then((data) => data.json())
 		.then((data) => {
 			console.log(data);
-			const productBox = document.querySelector(".product-box");
+			const productBox = document.querySelector(".catalogue-box");
 			productBox.textContent = "";
 			for (let index = 0; index < data.length; index++) {
-				productBox.innerHTML += `<div class="product-item"><img draggable="false" (dragstart)="false;" class="product-image" src="${data[index].image}" alt="thumbnail image of product"/><span>${data[index].title}</span></div>`;
+				productBox.innerHTML += `<div class="product-item"><img draggable="false" (dragstart)="false;" class="product-image rounded-top" src="${data[index].image}" alt="thumbnail image of product"/><span class="text-dark bg-white rounded-bottom">${data[index].title}</span></div>`;
 			}
 		});
 }

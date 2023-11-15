@@ -1,34 +1,46 @@
-.scrollable-div::-webkit-scrollbar {
-	display: none;
+* {
+	margin: 0;
+	padding: 0;
 }
 
-.scrollable-div {
-	scroll-behavior: smooth;
+body::-webkit-scrollbar {
+	width: 0em;
+}
+
+/* ------------------------ Main div ------------------------ */
+.catalogue-box {
+	border: 1px solid black;
 	display: flex;
 	flex-direction: row;
-	display: flex;
-	gap: 30px;
+	flex-wrap: wrap;
 	user-select: none;
+	padding: 10px;
+	width: 100%;
+	margin: 0 auto;
+	row-gap: 20px;
+	overflow-x: hidden;
 }
 
 .product-item {
-	width: 500px;
-	height: 250px;
+	flex: 0 0 20%;
 	display: flex;
 	flex-direction: column;
-	gap: 5px;
 }
 .product-item span {
+	width: 150px;
+	padding: 3px;
 	user-select: text;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+	margin: 0 auto;
 }
 
 .product-image {
 	width: 150px;
 	height: 200px;
+	margin: 0 auto;
 }
 
 .product-list {

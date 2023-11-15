@@ -12,7 +12,6 @@
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,9 +72,7 @@
     <section class="catalogue-section">
         <div class="product-list text-white">
 			<h2>Products</h2>
-			<div class="scroll-container">
-				<div class="scrollable-div product-box">
-                </div>
+			<div class="catalogue-box">
 			</div>
 		</div>
     </section>
