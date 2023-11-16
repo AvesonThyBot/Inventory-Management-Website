@@ -80,10 +80,10 @@
     </section>
 
     <!-- Details Section -->
-    <section class="detail-section text-danger" hidden>c</section>
+    <section class="detail-section text-danger" hidden>b</section>
 
     <!-- Cart Section -->
-    <section class="cart-section text-danger" hidden>b</section>
+    <section class="cart-section text-danger" hidden>c</section>
 
     <!-- Script -->
     <script src="javascripts/index.js"></script>

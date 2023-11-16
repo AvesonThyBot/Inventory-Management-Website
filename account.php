@@ -12,7 +12,6 @@
         $pass = $_POST["txtPassword"];
     
         $sql = "SELECT * FROM users WHERE email = '$email'";
-    
         $result = mysqli_query($conn, $sql);
     
         while ($row = mysqli_fetch_assoc($result)){
@@ -21,7 +20,6 @@
             if (password_verify($pass, $passHash)) {
                 setcookie('user_id', $user_id, time() + (86400 * 30), "/");
                 setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
-    
                 header("Location:index.php");
             } else {
     

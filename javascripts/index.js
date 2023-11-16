@@ -56,5 +56,8 @@ function displayInfo(ID) {
 		.then((data) => data.json())
 		.then((data) => {
 			console.log(data);
+			document.querySelector(".catalogue-section").setAttribute("hidden", "hidden");
+			document.querySelector(".cart-section").setAttribute("hidden", "hidden");
+			document.querySelector(".cart-section").removeAttribute("hidden", "hidden");
 		});
 }
