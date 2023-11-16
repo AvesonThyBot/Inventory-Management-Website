@@ -8,7 +8,7 @@
     
     // Login
     if (isset($_POST["btnLogin"])) {
-        $email = $_POST["txtEmailAddress"];
+        $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
         $pass = $_POST["txtPassword"];
     
         $sql = "SELECT * FROM users WHERE email = '$email'";
@@ -33,8 +33,10 @@
     if(isset($_POST['btnRegister'])){
         // Filter first name
         $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
+        // Filter last name
         $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
-        $email = $_POST["txtEmailAddress"];
+        // Filter email name
+        $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
         $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
         $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
         $result = mysqli_query($conn, $sql);
