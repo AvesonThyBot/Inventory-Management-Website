@@ -60,3 +60,8 @@ body::-webkit-scrollbar {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+
+/* ------------------------ Index page  ------------------------ */
+.dropdown-item:first-child {
+	user-select: none;
+}

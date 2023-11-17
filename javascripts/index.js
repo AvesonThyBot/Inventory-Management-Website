@@ -58,6 +58,10 @@ function displayInfo(ID) {
 			console.log(data);
 			document.querySelector(".catalogue-section").setAttribute("hidden", "hidden");
 			document.querySelector(".cart-section").setAttribute("hidden", "hidden");
-			document.querySelector(".cart-section").removeAttribute("hidden", "hidden");
+			document.querySelector(".detail-section").removeAttribute("hidden", "hidden");
+			document.querySelectorAll(".navbar-sections").forEach((element) => {
+				element.classList.remove("active");
+			});
+			document.querySelector(`.${webUrl}-navbar-section`).classList.add("active");
 		});
 }

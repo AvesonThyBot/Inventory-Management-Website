@@ -47,7 +47,6 @@
         header("Location:index.php");
         throw new Exception("No type in url");
     }
-
 ?>
 
 
