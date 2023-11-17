@@ -21,23 +21,31 @@
                 setcookie('user_id', $user_id, time() + (86400 * 30), "/");
                 setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
                 header("Location:index.php");
-            } else {
-    
             }
         }
     } 
 
     // Register
     if(isset($_POST['btnRegister'])){
+        $sql_accounts = "SELECT email FROM users";
+        $account_result = mysqli_query($conn, $sql_accounts);
+        $account_rows = mysqli_fetch_all($account_result, MYSQLI_ASSOC);
         // Filter first name
         $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
         // Filter last name
         $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
         // Filter email name
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
+        foreach ($account_rows as $account_row) {
+            if ($account_row["email"] == $email_to_check) {
+                echo "Email already taken:";
+                break;
+            }
+        }
         $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
         $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
         $result = mysqli_query($conn, $sql);
+
     }
 
     // Log out
