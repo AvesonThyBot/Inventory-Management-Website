@@ -27,7 +27,6 @@
 
     // Register
     if(isset($_POST['btnRegister'])){
-        echo "hi";
         $sql_accounts = "SELECT email FROM users";
         $account_result = mysqli_query($conn, $sql_accounts);
         // Filter first name
@@ -36,16 +35,24 @@
         $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
         // Filter email name
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
+        // Validate all data before registering.
+
+        $input_error= [];
         // check if email is valid
         while ($account_row = mysqli_fetch_assoc($account_result)) {
             if ($account_row["email"] == $email){
-                echo "Emailed is already being used.";
+                $email_error = "Emailed is already being used.";
+                $input_error[] = "email";
                 break;
             };
         }
+        
+        // if theres no errors then it will submit
+        if(count($input_error) == 0){
         $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
         $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
         $result = mysqli_query($conn, $sql);
+        }
     }
 
     // Log out
@@ -113,51 +120,33 @@
     <!-- Registry section -->
     <section class="register-section sections">
         <!-- Registry Form -->
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" hidden >
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">First Name</span>
-                <input type="text" class="form-control" placeholder="First name" aria-label="firstName" aria-describedby="basic-addon1" name="txtFirstName" required>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Last Name</span>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="lastName" aria-describedby="basic-addon1" name="txtLastName" required>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email</span>
-                <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Password</span>
-                <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
-            </div>
-            <div>
-                <input type="submit" class="btn btn-primary register-btn" value="Register" name="btnRegister"/>
-            </div>
-        </form>
-        <!-- New Form-->
         <form id="register-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
                 <input type="text" class="form-control" name="txtFirstName" placeholder="First name" required>
-                <div class="invalid-feedback"> <!-- Invalid input-->
-                    Enter first name.
+                <div class="invalid-feedback invalid-first"> <!-- Invalid input-->
+                    
+                Enter first name.
                 </div>
             </div>
             <!-- Last Name -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
                 <input type="text" class="form-control" placeholder="Last name" name="txtLastName" required>
-                <div class="invalid-feedback"> <!-- Invalid input-->
+                <div class="invalid-feedback invalid-last"> <!-- Invalid input-->
                     Enter last name.
                 </div>
             </div>
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control" placeholder="Email address" name="txtEmailAddress" required>
-                <div class="invalid-feedback"> <!-- Invalid input-->
-                    Invalid Email/ Email taken.
+                <input type="email" class="form-control <?php if(isset($input_error) && in_array("email", $input_error)){echo "is-invalid";}?>" placeholder="Email address" name="txtEmailAddress" required>
+                <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
+                    <?php 
+                    if(isset($input_error) && in_array("email", $input_error)){
+                        echo "Email is already being used.";
+                    }?>   
                 </div>
                 </div>
             </div>
@@ -165,7 +154,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
                 <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
-                <div class="invalid-feedback"> <!-- Invalid input-->
+                <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
                     Please enter password.
                 </div>
             </div>
