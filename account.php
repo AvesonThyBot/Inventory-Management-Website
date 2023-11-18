@@ -27,6 +27,7 @@
 
     // Register
     if(isset($_POST['btnRegister'])){
+        echo "hi";
         $sql_accounts = "SELECT email FROM users";
         $account_result = mysqli_query($conn, $sql_accounts);
         // Filter first name
@@ -94,7 +95,7 @@
     <!-- Login section -->
     <section class="login-section sections" hidden>
         <!-- Login Form -->
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form id="login-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Email</span>
                 <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
@@ -134,7 +135,7 @@
             </div>
         </form>
         <!-- New Form-->
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
+        <form id="register-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
@@ -143,7 +144,7 @@
                     Enter first name.
                 </div>
             </div>
-            <!-- Last Name -->
+            <!-- Last Name -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
                 <input type="text" class="form-control" placeholder="Last name" name="txtLastName" required>
@@ -151,7 +152,7 @@
                     Enter last name.
                 </div>
             </div>
-            <!-- Email -->
+            <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
                 <input type="email" class="form-control" placeholder="Email address" name="txtEmailAddress" required>
