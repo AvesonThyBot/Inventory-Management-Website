@@ -29,23 +29,22 @@
     if(isset($_POST['btnRegister'])){
         $sql_accounts = "SELECT email FROM users";
         $account_result = mysqli_query($conn, $sql_accounts);
-        $account_rows = mysqli_fetch_all($account_result, MYSQLI_ASSOC);
         // Filter first name
         $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
         // Filter last name
         $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
         // Filter email name
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
-        foreach ($account_rows as $account_row) {
-            if ($account_row["email"] == $email_to_check) {
-                echo "Email already taken:";
+        // check if email is valid
+        while ($account_row = mysqli_fetch_assoc($account_result)) {
+            if ($account_row["email"] == $email){
+                echo "Emailed is already being used.";
                 break;
-            }
+            };
         }
         $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
         $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
         $result = mysqli_query($conn, $sql);
-
     }
 
     // Log out
@@ -113,7 +112,7 @@
     <!-- Registry section -->
     <section class="register-section sections">
         <!-- Registry Form -->
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" hidden >
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">First Name</span>
                 <input type="text" class="form-control" placeholder="First name" aria-label="firstName" aria-describedby="basic-addon1" name="txtFirstName" required>
@@ -132,6 +131,46 @@
             </div>
             <div>
                 <input type="submit" class="btn btn-primary register-btn" value="Register" name="btnRegister"/>
+            </div>
+        </form>
+        <!-- New Form-->
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
+            <!-- First Name -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">First name</span>
+                <input type="text" class="form-control" name="txtFirstName" placeholder="First name" required>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    Enter first name.
+                </div>
+            </div>
+            <!-- Last Name -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Last name</span>
+                <input type="text" class="form-control" placeholder="Last name" name="txtLastName" required>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    Enter last name.
+                </div>
+            </div>
+            <!-- Email -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" placeholder="Email address" name="txtEmailAddress" required>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    Invalid Email/ Email taken.
+                </div>
+                </div>
+            </div>
+            <!-- Password -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Password</span>
+                <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    Please enter password.
+                </div>
+            </div>
+            <!-- Submit -->
+            <div>
+                <button class="btn btn-primary register-btn" type="submit">Submit form</button>
             </div>
         </form>
     </section>
