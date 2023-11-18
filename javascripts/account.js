@@ -21,24 +21,3 @@ document.addEventListener("DOMContentLoaded", function () {
 		document.querySelector(`.navbar-${webUrl}`).classList.add("active");
 	}
 });
-
-// Turn off refresh when submitted (login)
-document.getElementById("login-form").addEventListener("submit", function (e) {
-	e.preventDefault();
-
-	// Submit the form using JavaScript
-	document.getElementById("login-form").submit();
-});
-
-// Turn off refresh when submitted (register)
-document.getElementById("register-form").addEventListener("submit", function (e) {
-	e.preventDefault();
-
-	// Submit the form using JavaScript
-	const invalidCount = document.querySelectorAll("is-invalid").length;
-	if (invalidCount == 0) {
-		document.getElementById("register-form").submit();
-	} else {
-		console.log("eror");
-	}
-});
