@@ -1,6 +1,10 @@
 <?php
     require "config/database.php";
 
+
+    $input_error = [];
+    $email_error = "";
+    
     // redirect to index
     if (count($_COOKIE) > 0) {
         header("Location:index.php");
@@ -37,7 +41,6 @@
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
         // Validate all data before registering.
 
-        $input_error= [];
         // check if email is valid
         while ($account_row = mysqli_fetch_assoc($account_result)) {
             if ($account_row["email"] == $email){
@@ -141,10 +144,10 @@
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control <?php if(isset($input_error) && in_array("email", $input_error)){echo "is-invalid";}?>" placeholder="Email address" name="txtEmailAddress" required>
+                <input type="email" class="form-control <?php if(!empty($input_error) && in_array("email", $input_error)){echo "is-invalid";}?>" placeholder="Email address" name="txtEmailAddress" required>
                 <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
                     <?php 
-                    if(isset($input_error) && in_array("email", $input_error)){
+                    if(!empty($input_error) && in_array("email", $input_error)){
                         echo "Email is already being used.";
                     }?>   
                 </div>
