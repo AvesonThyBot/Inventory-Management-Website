@@ -1,10 +1,7 @@
 <?php
     require "config/database.php";
 
-
     $input_error = [];
-    $email_error = "";
-    
     // redirect to index
     if (count($_COOKIE) > 0) {
         header("Location:index.php");
@@ -44,7 +41,6 @@
         // check if email is valid
         while ($account_row = mysqli_fetch_assoc($account_result)) {
             if ($account_row["email"] == $email){
-                $email_error = "Emailed is already being used.";
                 $input_error[] = "email";
                 break;
             };
@@ -52,9 +48,9 @@
         
         // if theres no errors then it will submit
         if(count($input_error) == 0){
-        $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
-        $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
-        $result = mysqli_query($conn, $sql);
+            $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
+            $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
+            $result = mysqli_query($conn, $sql);
         }
     }
 
