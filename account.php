@@ -1,6 +1,10 @@
 <?php
     require "config/database.php";
-
+    $sql_accounts = "SELECT * FROM users";
+    $account_result = mysqli_query($conn, $sql_accounts);
+    while ($account_row = mysqli_fetch_assoc($account_result)) {
+        echo $account_row["email"] . "<br>";
+    }
     $input_error = [];
     // redirect to index
     if (count($_COOKIE) > 0) {
@@ -28,7 +32,7 @@
 
     // Register
     if(isset($_POST['btnRegister'])){
-        $sql_accounts = "SELECT email FROM users";
+        $sql_accounts = "SELECT * FROM users";
         $account_result = mysqli_query($conn, $sql_accounts);
         // Filter first name
         $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
@@ -47,7 +51,6 @@
                 break;
             };
         }
-        
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
