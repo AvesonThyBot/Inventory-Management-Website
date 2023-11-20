@@ -38,6 +38,8 @@
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
         // Validate all data before registering.
 
+        // Add validation check for first, last, email and password
+
         // check if email is valid
         while ($account_row = mysqli_fetch_assoc($account_result)) {
             if ($account_row["email"] == $email){
@@ -123,18 +125,23 @@
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
-                <input type="text" class="form-control" name="txtFirstName" placeholder="First name" required>
+                <input type="text" class="form-control <?php if(!empty($input_error) && in_array("first", $input_error)){echo "is-invalid";}?>" name="txtFirstName" placeholder="First name" required>
                 <div class="invalid-feedback invalid-first"> <!-- Invalid input-->
-                    
-                Enter first name.
+                <?php 
+                    if(!empty($input_error) && in_array("first", $input_error)){
+                        echo "Enter firt name.";
+                    }?>  
                 </div>
             </div>
             <!-- Last Name -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
-                <input type="text" class="form-control" placeholder="Last name" name="txtLastName" required>
+                <input type="text" class="form-control <?php if(!empty($input_error) && in_array("last", $input_error)){echo "is-invalid";}?>" placeholder="Last name" name="txtLastName" required>
                 <div class="invalid-feedback invalid-last"> <!-- Invalid input-->
-                    Enter last name.
+                <?php 
+                    if(!empty($input_error) && in_array("last", $input_error)){
+                        echo "Enter last name.";
+                    }?>  
                 </div>
             </div>
             <!-- Email -->  
@@ -152,9 +159,12 @@
             <!-- Password -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
-                <input type="password" class="form-control" placeholder="Password" name="txtPassword" required>
+                <input type="password" class="form-control <?php if(!empty($input_error) && in_array("password", $input_error)){echo "is-invalid";}?>" placeholder="Password" name="txtPassword" required>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
-                    Please enter password.
+                <?php 
+                    if(!empty($input_error) && in_array("password", $input_error)){
+                        echo "Please enter password.";
+                    }?>  
                 </div>
             </div>
             <!-- Submit -->
