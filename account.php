@@ -12,26 +12,28 @@
         // Filter email
         if(empty($_POST["txtEmailAddress"]) || !filter_var($_POST["txtEmailAddress"], FILTER_VALIDATE_EMAIL)) {
             $input_error[] = "login_email";
-            }else{
-                $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
-                $input_array["login_email"] = $email;
-            }
-
+        }else{
+            $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
+            $input_array["login_email"] = $email;
+        }
+        echo"1";
         // Filter password
         if(empty($_POST["txtPassword"])) {
            $input_error[] = "login_password";
         }else{
             $input_array["login_password"] = $_POST["txtPassword"];
         }
+        echo"2";
         # --------------------- code needs fixing for under ---------------------
         // concat errors into 1 string
         $login_errors = '';
         if (in_array('login_email', $input_array)) {
-            $login_errors .= 'email';
+            $login_errors = 'email';
         }
         if (in_array('login_password', $input_array)) {
             $login_errors .= 'password';
         }
+        echo"3";
         // redirect if theres errors
         if (count($input_array) > 0){
             header("Location:account.php?type=login&error=". urlencode($login_errors));
@@ -54,6 +56,7 @@
                 }
             }
         }
+        echo"4";
     }
 
     // Register
