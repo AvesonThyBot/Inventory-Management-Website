@@ -47,7 +47,7 @@
             $input_array["last"] = $last_name;
         }
         // Filter email
-        if(empty($_POST["txtEmailAddress"])) {
+        if(empty($_POST["txtEmailAddress"]) || !filter_var($_POST["txtEmailAddress"], FILTER_VALIDATE_EMAIL)) {
             $input_error[] = "email";
         }elseif(!empty($_POST["txtEmailAddress"])){
             // check if email is taken
@@ -69,7 +69,6 @@
         }else{
             $input_array["password"] = $_POST["txtPassword"];
         }
-        echo $email;
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             // hash password
