@@ -9,22 +9,52 @@
     }
     // Login
     if (isset($_POST["btnLogin"])) {
-        $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
-        $pass = $_POST["txtPassword"];
-    
-        $sql = "SELECT * FROM users WHERE email = '$email'";
-        $result = mysqli_query($conn, $sql);
-    
-        while ($row = mysqli_fetch_assoc($result)){
-            $passHash = $row["password_text"];
-            $user_id = $row["user_id"];
-            if (password_verify($pass, $passHash)) {
-                setcookie('user_id', $user_id, time() + (86400 * 30), "/");
-                setcookie('is_logged_in', true, time() + (86400 * 30), "/");         
-                header("Location:index.php");
+        // Filter email
+        if(empty($_POST["txtEmailAddress"]) || !filter_var($_POST["txtEmailAddress"], FILTER_VALIDATE_EMAIL)) {
+            $input_error[] = "login_email";
+            }else{
+                $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
+                $input_array["login_email"] = $email;
+            }
+
+        // Filter password
+        if(empty($_POST["txtPassword"])) {
+           $input_error[] = "login_password";
+        }else{
+            $input_array["login_password"] = $_POST["txtPassword"];
+        }
+        # --------------------- code needs fixing for under ---------------------
+        // concat errors into 1 string
+        $login_errors = '';
+        if (in_array('login_email', $input_array)) {
+            $login_errors .= 'email';
+        }
+        if (in_array('login_password', $input_array)) {
+            $login_errors .= 'password';
+        }
+        // redirect if theres errors
+        if (count($input_array) > 0){
+            header("Location:account.php?type=login&error=". urlencode($login_errors));
+        }
+        // run if theres no errors.
+        if (!in_array("login_email",$input_array) && !in_array("login_password",$input_array)){
+            $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
+            $pass = $_POST["txtPassword"];
+        
+            $sql = "SELECT * FROM users WHERE email = '$email'";
+            $result = mysqli_query($conn, $sql);
+        
+            while ($row = mysqli_fetch_assoc($result)){
+                $passHash = $row["password_text"];
+                $user_id = $row["user_id"];
+                if (password_verify($pass, $passHash)) {
+                    setcookie('user_id', $user_id, time() + (86400 * 30), "/");
+                    setcookie('is_logged_in', true, time() + (86400 * 30), "/");         
+                    header("Location:index.php");
+                }
             }
         }
-    } 
+    }
 
     // Register
     if(isset($_POST['btnRegister'])){
@@ -138,19 +168,19 @@
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input value="<?php?>" type="email" class="form-control <?php?>" placeholder="Email address" name="txtEmailAddress" required>
-                <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
-                    <?php 
-                    ?>
-                </div>
+                <input value="" type="email" class="form-control <?php?>" placeholder="Email address" name="txtEmailAddress" required>
+                <div class="invalid-feedback invalid-email"> <!-- Invalid input-->
+                <?php
+                ?>  
                 </div>
             </div>
             <!-- Password -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
-                <input value="" type="password" class="form-control <?php?>" placeholder="Password" name="txtPassword" required>
+                <input value="" type="password" class="form-control <?php if(in_array("login_password",$input_array)){echo "is-invalid";}?>" placeholder="Password" name="txtPassword" required>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
                 <?php
+                var_dump($input_array);
                 ?>  
                 </div>
             </div>
@@ -164,7 +194,7 @@
     <!-- Registry section -->
     <section class="register-section sections">
         <!-- Registry Form -->
-        <form id="register-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
