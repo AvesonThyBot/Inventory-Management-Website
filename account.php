@@ -1,16 +1,11 @@
 <?php
     require "config/database.php";
-    $sql_accounts = "SELECT * FROM users";
-    $account_result = mysqli_query($conn, $sql_accounts);
-    while ($account_row = mysqli_fetch_assoc($account_result)) {
-        echo $account_row["email"] . "<br>";
-    }
+
     $input_error = [];
     // redirect to index
     if (count($_COOKIE) > 0) {
         header("Location:index.php");
     }
-    
     // Login
     if (isset($_POST["btnLogin"])) {
         $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
@@ -35,22 +30,40 @@
         $sql_accounts = "SELECT * FROM users";
         $account_result = mysqli_query($conn, $sql_accounts);
         // Filter first name
-        $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
+        if(empty($_POST["txtFirstName"])) {
+            $input_error[] = "first";
+        }else {
+            $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
+        }
         // Filter last name
-        $last_name = filter_input(INPUT_POST, 'txtLastName',FILTER_SANITIZE_SPECIAL_CHARS);
-        // Filter email name
-        $email = filter_input(INPUT_POST, 'txtEmailAddress',FILTER_VALIDATE_EMAIL);
-        // Validate all data before registering.
+        if(empty($_POST["txtLastName"])) {
+            $input_error[] = "last";
+        }else {
+            $last_name = filter_input(INPUT_POST, 'txtLastName', FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+        // Filter email
+        if(empty($_POST["txtEmailAddress"])) {
+            $input_error[] = "email";
+        }elseif(!empty($_POST["txtEmailAddress"])){
+            // check if email is taken
+            while ($account_row = mysqli_fetch_assoc($account_result)) {
+                if ($account_row["email"] == $email){
+                    $input_error[] = "email";
+                    break;
+                };
+            }
+        }
+        else {
+            $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
+        }
+        // Filter password
+        if(empty($_POST["txtPassword"])) {
+           $input_error[] = "password";
+        }
 
         // Add validation check for first, last, email and password
 
-        // check if email is valid
-        while ($account_row = mysqli_fetch_assoc($account_result)) {
-            if ($account_row["email"] == $email){
-                $input_error[] = "email";
-                break;
-            };
-        }
+        
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
@@ -128,18 +141,18 @@
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
-                <input type="text" class="form-control <?php if(!empty($input_error) && in_array("first", $input_error)){echo "is-invalid";}?>" name="txtFirstName" placeholder="First name" required>
+                <input type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("first", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" name="txtFirstName" placeholder="First name" required>
                 <div class="invalid-feedback invalid-first"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("first", $input_error)){
-                        echo "Enter firt name.";
+                        echo "Enter first name.";
                     }?>  
                 </div>
             </div>
             <!-- Last Name -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
-                <input type="text" class="form-control <?php if(!empty($input_error) && in_array("last", $input_error)){echo "is-invalid";}?>" placeholder="Last name" name="txtLastName" required>
+                <input type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("last", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Last name" name="txtLastName" required>
                 <div class="invalid-feedback invalid-last"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("last", $input_error)){
@@ -150,7 +163,7 @@
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control <?php if(!empty($input_error) && in_array("email", $input_error)){echo "is-invalid";}?>" placeholder="Email address" name="txtEmailAddress" required>
+                <input type="email" class="form-control <?php if(!empty($input_error)){ if(in_array("email", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Email address" name="txtEmailAddress" required>
                 <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
                     <?php 
                     if(!empty($input_error) && in_array("email", $input_error)){
@@ -162,7 +175,7 @@
             <!-- Password -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
-                <input type="password" class="form-control <?php if(!empty($input_error) && in_array("password", $input_error)){echo "is-invalid";}?>" placeholder="Password" name="txtPassword" required>
+                <input type="password" class="form-control <?php if(!empty($input_error)){ if( in_array("password", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Password" name="txtPassword" required>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("password", $input_error)){
@@ -172,7 +185,7 @@
             </div>
             <!-- Submit -->
             <div>
-                <button class="btn btn-primary register-btn" type="submit">Submit form</button>
+                <button class="btn btn-primary register-btn" type="submit" name="btnRegister">Submit form</button>
             </div>
         </form>
     </section>
