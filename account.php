@@ -46,9 +46,10 @@
             $input_error[] = "email";
         }elseif(!empty($_POST["txtEmailAddress"])){
             // check if email is taken
+            $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
             while ($account_row = mysqli_fetch_assoc($account_result)) {
                 if ($account_row["email"] == $email){
-                    $input_error[] = "email";
+                    $input_error[] = "email_2";
                     break;
                 };
             }
@@ -163,12 +164,15 @@
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control <?php if(!empty($input_error)){ if(in_array("email", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Email address" name="txtEmailAddress" required>
+                <input type="email" class="form-control <?php if(!empty($input_error)){ if(in_array("email", $input_error)){echo "is-invalid";}elseif(in_array("email_2", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Email address" name="txtEmailAddress" required>
                 <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
                     <?php 
                     if(!empty($input_error) && in_array("email", $input_error)){
+                        echo "Please enter an email.";
+                    }elseif (!empty($input_error) && in_array("email_2", $input_error)) {
                         echo "Email is already being used.";
-                    }?>   
+                    }
+                    ?>
                 </div>
                 </div>
             </div>
