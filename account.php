@@ -20,7 +20,7 @@
             $user_id = $row["user_id"];
             if (password_verify($pass, $passHash)) {
                 setcookie('user_id', $user_id, time() + (86400 * 30), "/");
-                setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
+                setcookie('is_logged_in', true, time() + (86400 * 30), "/");         
                 header("Location:index.php");
             }
         }
@@ -70,7 +70,6 @@
         }else{
             $input_array["password"] = $_POST["txtPassword"];
         }
-        var_dump($input_array);
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             // hash password
@@ -90,8 +89,8 @@
 
     // Log out
     if (isset($_GET['type']) && $_GET['type'] == "logout"){
-        setcookie('is_logged_in', false, time()-3600);
-        setcookie('user_id', "", time()-3600);
+        setcookie('is_logged_in', false, time()-3600, "/");
+        setcookie('user_id', "", time()-3600, "/");
         header("Location:index.php");
         throw new Exception("No type in url");
     }
@@ -109,7 +108,7 @@
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
     <title>Register - Inventory</title>
 </head>
-<body class="bg-dark">
+<body class="bg-dark text-white">
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
 		<div class="container-fluid">
