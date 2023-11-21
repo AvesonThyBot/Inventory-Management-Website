@@ -56,19 +56,21 @@
                 if ($account_row["email"] == $email){
                     $input_error[] = "email_2";
                     break;
-                };
+                }
+                else {
+                    $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
+                    $input_array["email"] = $email;
+                }
             }
         }
-        else {
-            $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
-            $input_array["email"] = $email;
-        }
+        
         // Filter password
         if(empty($_POST["txtPassword"])) {
            $input_error[] = "password";
         }else{
             $input_array["password"] = $_POST["txtPassword"];
         }
+        var_dump($input_array);
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             // hash password
