@@ -67,10 +67,19 @@
         
         // if theres no errors then it will submit
         if(count($input_error) == 0){
+            // hash password
             $password = password_hash($_POST["txtPassword"], CRYPT_BLOWFISH);
             $sql = "INSERT INTO users (first_name, last_name, email, password_text) VALUES ('$first_name', '$last_name', '$email', '$password')";
-            $result = mysqli_query($conn, $sql);
-        }
+            mysqli_query($conn, $sql);
+            $register_result = mysqli_query($conn, "SELECT user_id FROM users WHERE email = '$email'");
+            // log them in
+            while ($row = mysqli_fetch_assoc($register_result)){
+                var_dump($row);
+                $user_id = $row["user_id"];
+                setcookie('user_id', $user_id, time() + (86400 * 30), "/");
+                setcookie('is_logged_in', true, time() + (86400 * 30), "/");                
+                header("Location:index.php");
+        }}
     }
 
     // Log out
