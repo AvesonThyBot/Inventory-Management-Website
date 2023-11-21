@@ -33,13 +33,15 @@
         if(empty($_POST["txtFirstName"])) {
             $input_error[] = "first";
         }else {
-            $first_name = filter_input(INPUT_POST, 'txtFirstName',FILTER_SANITIZE_SPECIAL_CHARS);
+            $first_name = filter_input(INPUT_POST, 'txtFirstName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $first_name = preg_replace("/[^a-zA-Z]/", "", $first_name);
         }
         // Filter last name
         if(empty($_POST["txtLastName"])) {
             $input_error[] = "last";
         }else {
             $last_name = filter_input(INPUT_POST, 'txtLastName', FILTER_SANITIZE_SPECIAL_CHARS);
+            $last_name = preg_replace("/[^a-zA-Z]/", "", $last_name);
         }
         // Filter email
         if(empty($_POST["txtEmailAddress"])) {
