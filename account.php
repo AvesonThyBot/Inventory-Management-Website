@@ -2,6 +2,7 @@
     require "config/database.php";
 
     $input_error = [];
+    $input_array = array("first"=>"", "last"=>"", "email"=>"","password"=>"");
     // redirect to index
     if (count($_COOKIE) > 0) {
         header("Location:index.php");
@@ -35,6 +36,7 @@
         }else {
             $first_name = filter_input(INPUT_POST, 'txtFirstName', FILTER_SANITIZE_SPECIAL_CHARS);
             $first_name = preg_replace("/[^a-zA-Z]/", "", $first_name);
+            $input_array["first"] = $first_name;
         }
         // Filter last name
         if(empty($_POST["txtLastName"])) {
@@ -42,6 +44,7 @@
         }else {
             $last_name = filter_input(INPUT_POST, 'txtLastName', FILTER_SANITIZE_SPECIAL_CHARS);
             $last_name = preg_replace("/[^a-zA-Z]/", "", $last_name);
+            $input_array["last"] = $last_name;
         }
         // Filter email
         if(empty($_POST["txtEmailAddress"])) {
@@ -58,15 +61,15 @@
         }
         else {
             $email = filter_input(INPUT_POST, 'txtEmailAddress', FILTER_VALIDATE_EMAIL);
+            $input_array["email"] = $email;
         }
         // Filter password
         if(empty($_POST["txtPassword"])) {
            $input_error[] = "password";
+        }else{
+            $input_array["password"] = $_POST["txtPassword"];
         }
-
-        // Add validation check for first, last, email and password
-
-        
+        echo $email;
         // if theres no errors then it will submit
         if(count($input_error) == 0){
             // hash password
@@ -153,7 +156,7 @@
             <!-- First Name -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
-                <input type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("first", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" name="txtFirstName" placeholder="First name" required>
+                <input value="<?php if(strlen($input_array["first"]) > 0){echo $input_array["first"];}?>" type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("first", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" name="txtFirstName" placeholder="First name" required>
                 <div class="invalid-feedback invalid-first"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("first", $input_error)){
@@ -164,7 +167,7 @@
             <!-- Last Name -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
-                <input type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("last", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Last name" name="txtLastName" required>
+                <input value="<?php if(strlen($input_array["last"]) > 0){echo $input_array["last"];}?>" type="text" class="form-control <?php if(!empty($input_error)){ if(in_array("last", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Last name" name="txtLastName" required>
                 <div class="invalid-feedback invalid-last"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("last", $input_error)){
@@ -175,11 +178,11 @@
             <!-- Email -->  
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control <?php if(!empty($input_error)){ if(in_array("email", $input_error)){echo "is-invalid";}elseif(in_array("email_2", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Email address" name="txtEmailAddress" required>
+                <input value="<?php if(strlen($input_array["email"]) > 0){echo $input_array["email"];}?>" type="email" class="form-control <?php if(!empty($input_error)){ if(in_array("email", $input_error)){echo "is-invalid";}elseif(in_array("email_2", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Email address" name="txtEmailAddress" required>
                 <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
                     <?php 
                     if(!empty($input_error) && in_array("email", $input_error)){
-                        echo "Please enter an email.";
+                        echo "Please enter a valid email.";
                     }elseif (!empty($input_error) && in_array("email_2", $input_error)) {
                         echo "Email is already being used.";
                     }
@@ -190,7 +193,7 @@
             <!-- Password -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Password</span>
-                <input type="password" class="form-control <?php if(!empty($input_error)){ if( in_array("password", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Password" name="txtPassword" required>
+                <input value="<?php if(strlen($input_array["password"]) > 0){echo $input_array["password"];}?>" type="password" class="form-control <?php if(!empty($input_error)){ if( in_array("password", $input_error)){echo "is-invalid";}else{echo"is-valid";}}?>" placeholder="Password" name="txtPassword" required>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
                 <?php 
                     if(!empty($input_error) && in_array("password", $input_error)){
