@@ -134,17 +134,29 @@
     <!-- Login section -->
     <section class="login-section sections" hidden>
         <!-- Login Form -->
-        <form id="login-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email</span>
-                <input type="email" class="form-control" placeholder="Email address" aria-label="emailAddress" aria-describedby="basic-addon1" name="txtEmailAddress" required>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="row g-3 needs-validation" novalidate>
+            <!-- Email -->  
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Email</span>
+                <input value="<?php?>" type="email" class="form-control <?php?>" placeholder="Email address" name="txtEmailAddress" required>
+                <div class="invalid-feedback invalid-email "> <!-- Invalid input-->
+                    <?php 
+                    ?>
+                </div>
+                </div>
             </div>
+            <!-- Password -->
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Password</span>
-                <input type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="basic-addon1" name="txtPassword" required>
+                <span class="input-group-text">Password</span>
+                <input value="" type="password" class="form-control <?php?>" placeholder="Password" name="txtPassword" required>
+                <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
+                <?php
+                ?>  
+                </div>
             </div>
+            <!-- Submit -->
             <div>
-                <input type="submit" class="btn btn-primary" value="Login" name="btnLogin"/>
+                <button class="btn btn-primary login-btn" type="submit" name="btnLogin">Login</button>
             </div>
         </form>
     </section>
@@ -203,7 +215,7 @@
             </div>
             <!-- Submit -->
             <div>
-                <button class="btn btn-primary register-btn" type="submit" name="btnRegister">Submit form</button>
+                <button class="btn btn-primary register-btn" type="submit" name="btnRegister">Register</button>
             </div>
         </form>
     </section>
