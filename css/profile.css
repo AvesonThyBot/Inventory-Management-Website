@@ -6,13 +6,34 @@ h1 {
 	width: 90%;
 	margin: auto;
 }
-
+.profile div input {
+	box-shadow: none !important;
+	border: none;
+}
 h1,
 h2 {
 	margin-left: 100px;
 }
 
+.password-section h2 {
+	margin-top: 50px;
+}
+
 .input-group-text {
 	width: clamp(100px, 100px, 100px);
 	user-select: none;
+}
+
+.input-group-prepend {
+	width: clamp(30px, 52px, 60px);
+	text-align: center;
+}
+
+.password-section div {
+	width: 90%;
+	margin: auto;
+}
+.password-section div input {
+	box-shadow: none !important;
+	border: none;
 }

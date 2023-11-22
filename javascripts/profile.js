@@ -23,6 +23,32 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
+// ----------------------- Functions -----------------------
+
+function editToggle(element, button) {
+	if (element.hasAttribute("disabled")) {
+		button.textContent = "Save";
+	} else {
+		button.textContent = "Edit";
+	}
+	element.toggleAttribute("disabled");
+}
+
+// Toggle disabled for first name
+document.getElementById("toggleFirst").onclick = () => {
+	editToggle(document.getElementById("firstName"), document.getElementById("firstName").nextElementSibling);
+};
+
+// Toggle disabled for last name
+document.getElementById("toggleLast").onclick = () => {
+	editToggle(document.getElementById("lastName"), document.getElementById("lastName").nextElementSibling);
+};
+
+// Toggle disabled for last name
+document.getElementById("toggleEmail").onclick = () => {
+	editToggle(document.getElementById("email"), document.getElementById("email").nextElementSibling);
+};
+
 // Toggle show and hide password
 document.getElementById("togglePassword").addEventListener("click", function () {
 	const passwordInput = document.getElementById("password");

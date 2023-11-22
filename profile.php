@@ -78,28 +78,41 @@ $row = mysqli_fetch_assoc($result);
     <h1>Hi, <?php echo $row["first_name"] ?></h1>
     <main class="profile">
         <h2>Profile</h2>
-        <!-- Email -->
-        <div class="input-group mb-3">
-            <span class="input-group-text">Email</span>
-            <input type="email" class="form-control" value="<?php echo $row["email"] ?>" disabled>
-        </div>
-        <!-- First name -->
-        <div class=" input-group mb-3">
-            <span class="input-group-text">First name</span>
-            <input type="text" class="form-control" value="<?php echo $row["first_name"] ?>">
-        </div>
-        <!-- Last name -->
-        <div class="input-group mb-3">
-            <span class="input-group-text">Last name</span>
-            <input type="text" class="form-control" value="<?php echo $row["last_name"] ?>">
-        </div>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <!-- Email -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Email</span>
+                <input type="email" class="form-control" id="email" value="<?php echo $row["email"] ?>" disabled>
+                <button class="input-group-prepend btn btn-light" type="button" id="toggleEmail">Edit</button>
+            </div>
+            <!-- First name -->
+            <div class=" input-group mb-3">
+                <span class="input-group-text">First name</span>
+                <input type="text" class="form-control" id="firstName" value="<?php echo $row["first_name"] ?>" disabled>
+                <button class="input-group-prepend btn btn-light" type="button" id="toggleFirst">Edit</button>
+            </div>
+            <!-- Last name -->
+            <div class="input-group mb-3">
+                <span class="input-group-text">Last name</span>
+                <input type="text" class="form-control" id="lastName" value="<?php echo $row["last_name"] ?>" disabled>
+                <button class="input-group-prepend btn btn-light" type="button" id="toggleLast">Edit</button>
+            </div>
+            <!-- Submit -->
+            <div>
+                <button class="btn btn-primary" type="submit" name="updateBtn">Save Changes</button>
+            </div>
+        </form>
         <!-- Password -->
+    </main>
+    <!-- Update password in profile -->
+    <section class="password-section">
+        <h2>Update password</h2>
         <div class="input-group mb-3">
             <span class="input-group-text">Password</span>
             <input type="password" class="form-control" id="password" value="<?php echo $row["password_text"] ?>" disabled>
-            <button class="input-group-prepend btn btn-outline-secondary" type="button" id="togglePassword">Toggle Password</button>
+            <button class="input-group-prepend btn btn-light" type="button" id="togglePassword">&#128269;</button>
         </div>
-    </main>
+    </section>
 
     <!-- Script -->
     <script src="javascripts/profile.js"></script>
