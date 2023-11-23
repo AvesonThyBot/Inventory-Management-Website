@@ -191,6 +191,17 @@ if (isset(($_POST["updateBtn"]))) {
         </form>
         <!-- Password -->
     </main>
+
+    <!-- Popup for updating profile details -->
+    <div class="toast align-items-center  border-0 position-fixed bottom-0 end-0" id="updateAlert" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+
     <!-- Update password in profile -->
     <section class="password-section">
         <h2>Update password</h2>
@@ -201,7 +212,8 @@ if (isset(($_POST["updateBtn"]))) {
         </div>
     </section>
 
-    <!-- Script -->
+
+    <!-- Scripts -->
     <script src="javascripts/profile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

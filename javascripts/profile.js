@@ -1,28 +1,30 @@
 // ----------------------- On Load -----------------------
 // Display account sections
 document.addEventListener("DOMContentLoaded", function () {
-	// set url link
-	let webUrl = window.location.search;
-	webUrl = new URLSearchParams(webUrl);
-	webUrl = webUrl.get("type");
-	if (webUrl == "catalogue") {
-		document.title = "Catalogue - Inventory";
-		document.querySelector(".cart-section").setAttribute("hidden", "hidden");
-		document.querySelector(".catalogue-section").removeAttribute("hidden", "hidden");
-	} else if (webUrl == "cart") {
-		document.title = "Cart - Inventory";
-		document.querySelector(".catalogue-section").setAttribute("hidden", "hidden");
-		document.querySelector(".cart-section").removeAttribute("hidden", "hidden");
-	}
-	// give active to correct class
-	if (webUrl == "catalogue" || webUrl == "cart") {
-		document.querySelectorAll(".navbar-sections").forEach((element) => {
-			element.classList.remove("active");
-		});
-		document.querySelector(`.${webUrl}-navbar-section`).classList.add("active");
+	// check the post
+	const urlParams = new URLSearchParams(window.location.search);
+	const updateBool = urlParams.get("update");
+	if (updateBool == "success" || updateBool == "failed") {
+		updateAlert(updateBool);
 	}
 });
-
+// function to display correct toast
+function updateAlert(alertType) {
+	const updateToast = document.getElementById("updateAlert");
+	const toast = new bootstrap.Toast(updateToast);
+	const toastBody = document.querySelector(".toast-body");
+	if (alertType == "success") {
+		updateToast.classList.remove("text-bg-danger");
+		updateToast.classList.add("text-bg-success");
+		toastBody.innerHTML = "Updated details successfully!";
+	} else {
+		updateToast.classList.remove("text-bg-success");
+		updateToast.classList.add("text-bg-danger");
+		toastBody.innerHTML = "Update failed.";
+	}
+	// display toast
+	toast.show();
+}
 // ----------------------- Functions -----------------------
 
 // function to enable and disable input element
@@ -62,4 +64,9 @@ document.getElementById("togglePassword").addEventListener("click", function () 
 		passwordInput.type = "password";
 		passwordInput.toggleAttribute("disabled");
 	}
+});
+
+// Alert for updating profile
+document.addEventListener("DOMContentLoaded", function () {
+	// check the post
 });
