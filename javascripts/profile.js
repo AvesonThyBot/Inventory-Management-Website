@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // function to enable and disable input element
 function editToggle(element, button) {
 	if (element.classList.contains("disable-input")) {
+		// disable input
 		button.textContent = "Save";
 		element.classList.remove("disable-input");
 	} else {

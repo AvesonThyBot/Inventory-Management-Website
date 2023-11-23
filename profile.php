@@ -12,8 +12,9 @@ $sql = "SELECT * FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
+// array to handle inputs error and value
 $input_error = [];
-$input_array = [];
+$input_array = array("first" => "", "last" => "", "email" => "");
 // Update general information
 if (isset(($_POST["updateBtn"]))) {
     // Filter first name
@@ -118,24 +119,59 @@ if (isset(($_POST["updateBtn"]))) {
     <h1>Hi, <?php echo $row["first_name"] ?></h1>
     <main class="profile">
         <h2>Profile</h2>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="needs-validation" novalidate>
             <!-- Email -->
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control disable-input" id="email" value="<?php echo $row["email"] ?>" name="updateEmail">
+                <input type="email" class="form-control disable-input <?php echo $errorClass = (in_array("email", $input_error) || in_array("email_2", $input_error)) ? "is-invalid" : ((strlen($input_array["email"]) > 0 && !in_array("email", $input_error) && !in_array("email_2", $input_error)) ? "is-valid" : ""); ?>" id="email" value="<?php if (!isset(($_POST["updateBtn"]))) {
+                                                                                                                                                                                                                                                                                                                                                    echo $row["email"];
+                                                                                                                                                                                                                                                                                                                                                } elseif (strlen($input_array["email"]) > 0) {
+                                                                                                                                                                                                                                                                                                                                                    echo $input_array["email"];
+                                                                                                                                                                                                                                                                                                                                                } ?>" name="updateEmail">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleEmail">Edit</button>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    <?php
+                    if (!empty($input_error) && in_array("email", $input_error)) {
+                        echo "Please enter a valid email.";
+                    } elseif (!empty($input_error) && in_array("email_2", $input_error)) {
+                        echo "Email is already being used.";
+                    }
+                    ?>
+                </div>
             </div>
             <!-- First name -->
-            <div class=" input-group mb-3">
+            <div class=" input-group mb-3 has-validation">
                 <span class="input-group-text">First name</span>
-                <input type="text" class="form-control disable-input" id="firstName" value="<?php echo $row["first_name"] ?>" name="updateFirst">
+                <input type="text" class="form-control disable-input <?php echo $errorClass = in_array("first", $input_error) ? "is-invalid" : (strlen($input_array["first"]) > 0 && !in_array("first", $input_error) ? "is-valid" : ""); ?>" id="firstName" value="<?php if (!isset(($_POST["updateBtn"]))) {
+                                                                                                                                                                                                                                                                        echo $row["first_name"];
+                                                                                                                                                                                                                                                                    } elseif (strlen($input_array["first"]) > 0) {
+                                                                                                                                                                                                                                                                        echo $input_array["first"];
+                                                                                                                                                                                                                                                                    } ?>" name="updateFirst">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleFirst">Edit</button>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    <?php
+                    if (!empty($input_error) && in_array("first", $input_error)) {
+                        echo "First name cannot be empty.";
+                    } ?>
+                </div>
             </div>
             <!-- Last name -->
-            <div class="input-group mb-3">
+            <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Last name</span>
-                <input type="text" class="form-control disable-input" id="lastName" value="<?php echo $row["last_name"] ?>" name="updateLast">
+                <input type="text" class="form-control disable-input <?php echo $errorClass = in_array("last", $input_error) ? "is-invalid" : (strlen($input_array["last"]) > 0 && !in_array("last", $input_error) ? "is-valid" : ""); ?>" id="lastName" value="<?php if (!isset(($_POST["updateBtn"]))) {
+                                                                                                                                                                                                                                                                    echo $row["last_name"];
+                                                                                                                                                                                                                                                                } elseif (strlen($input_array["last"]) > 0) {
+                                                                                                                                                                                                                                                                    echo $input_array["last"];
+                                                                                                                                                                                                                                                                } ?>" name="updateLast">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleLast">Edit</button>
+                <div class="invalid-feedback"> <!-- Invalid input-->
+                    <?php
+                    if (!empty($input_error) && in_array("last", $input_error)) {
+                        echo "Last name cannot be empty.";
+                    }
+                    ?>
+
+                </div>
             </div>
             <!-- Submit -->
             <div>
