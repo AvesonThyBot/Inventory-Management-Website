@@ -12,9 +12,45 @@ $sql = "SELECT * FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
-
+$input_error = [];
+$input_array = [];
 // Update general information
-if (isset(($_POST))) {
+if (isset(($_POST["updateBtn"]))) {
+    // Filter first name
+    if (empty($_POST["updateFirst"])) {
+        $input_error[] = "first";
+    }
+    $first_name = filter_input(INPUT_POST, 'updateFirst', FILTER_SANITIZE_SPECIAL_CHARS);
+    $first_name = preg_replace("/[^a-zA-Z]/", "", $first_name);
+    $input_array["first"] = $first_name;
+
+    // Filter last name
+    if (empty($_POST["updateLast"])) {
+        $input_error[] = "last";
+    }
+    $last_name = filter_input(INPUT_POST, 'updateLast', FILTER_SANITIZE_SPECIAL_CHARS);
+    $last_name = preg_replace("/[^a-zA-Z]/", "", $last_name);
+    $input_array["last"] = $last_name;
+
+    // Filter email
+    if (empty($_POST["updateEmail"]) || !filter_var($_POST["updateEmail"], FILTER_VALIDATE_EMAIL)) {
+        $input_error[] = "email";
+    } elseif (!empty($_POST["updateEmail"])) {
+        // check if email is taken
+        $account_results = mysqli_query($conn, "SELECT email FROM users WHERE email != '{$row['email']}'");
+        $email = filter_input(INPUT_POST, 'updateEmail', FILTER_VALIDATE_EMAIL);
+        while ($account_row = mysqli_fetch_assoc($account_results)) {
+            if ($account_row["email"] == $email) {
+                $input_error[] = "email_2";
+                break;
+            } else {
+                $input_array["email"] = $email;
+            }
+        }
+    }
+    var_dump($input_error);
+    echo "<br>";
+    var_dump($input_array);
 }
 ?>
 
