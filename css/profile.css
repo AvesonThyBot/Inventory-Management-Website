@@ -37,3 +37,7 @@ h2 {
 	box-shadow: none !important;
 	border: none;
 }
+.disable-input {
+	pointer-events: none;
+	user-select: text;
+}

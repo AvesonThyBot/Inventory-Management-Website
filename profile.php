@@ -12,6 +12,10 @@ $sql = "SELECT * FROM users WHERE user_id = $user_id";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
+
+// Update general information
+if (isset(($_POST))) {
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,24 +86,24 @@ $row = mysqli_fetch_assoc($result);
             <!-- Email -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Email</span>
-                <input type="email" class="form-control" id="email" value="<?php echo $row["email"] ?>" disabled>
+                <input type="email" class="form-control disable-input" id="email" value="<?php echo $row["email"] ?>" name="updateEmail">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleEmail">Edit</button>
             </div>
             <!-- First name -->
             <div class=" input-group mb-3">
                 <span class="input-group-text">First name</span>
-                <input type="text" class="form-control" id="firstName" value="<?php echo $row["first_name"] ?>" disabled>
+                <input type="text" class="form-control disable-input" id="firstName" value="<?php echo $row["first_name"] ?>" name="updateFirst">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleFirst">Edit</button>
             </div>
             <!-- Last name -->
             <div class="input-group mb-3">
                 <span class="input-group-text">Last name</span>
-                <input type="text" class="form-control" id="lastName" value="<?php echo $row["last_name"] ?>" disabled>
+                <input type="text" class="form-control disable-input" id="lastName" value="<?php echo $row["last_name"] ?>" name="updateLast">
                 <button class="input-group-prepend btn btn-light" type="button" id="toggleLast">Edit</button>
             </div>
             <!-- Submit -->
             <div>
-                <button class="btn btn-primary" type="submit" name="updateBtn">Save Changes</button>
+                <button class="btn btn-outline-light float-end" type="submit" name="updateBtn">Update info</button>
             </div>
         </form>
         <!-- Password -->

@@ -25,13 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ----------------------- Functions -----------------------
 
+// function to enable and disable input element
 function editToggle(element, button) {
-	if (element.hasAttribute("disabled")) {
+	if (element.classList.contains("disable-input")) {
 		button.textContent = "Save";
+		element.classList.remove("disable-input");
 	} else {
 		button.textContent = "Edit";
+		element.classList.add("disable-input");
 	}
-	element.toggleAttribute("disabled");
 }
 
 // Toggle disabled for first name
