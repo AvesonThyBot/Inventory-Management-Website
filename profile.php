@@ -49,9 +49,20 @@ if (isset(($_POST["updateBtn"]))) {
             }
         }
     }
-    var_dump($input_error);
-    echo "<br>";
-    var_dump($input_array);
+    // update information if theres no errors
+    if (count(($input_error)) == 0) {
+        $sql = "UPDATE users
+                SET first_name = '$first_name',
+                    last_name = '$last_name',
+                    email = '$email'
+                WHERE email = '{$row['email']}'";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            header("Location:profile.php?update=success");
+        } else {
+            header("Location:profile.php?update=failed");
+        }
+    }
 }
 ?>
 
