@@ -21,7 +21,7 @@ $row = mysqli_fetch_assoc($result);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
-    <title>Catalogue - Inventory</title>
+    <title>inventory - Inventory</title>
 </head>
 
 <body class="bg-dark">
@@ -38,10 +38,10 @@ $row = mysqli_fetch_assoc($result);
                 <!-- navbar list -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active catalogue-navbar-section navbar-sections" aria-current="page" href="?type=catalogue">Catalogue</a>
+                        <a class="nav-link active inventory-navbar-section navbar-sections" aria-current="page" href="?type=inventory">inventory</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cart-navbar-section navbar-sections" href="?type=cart">Cart</a>
+                        <a class="nav-link List-navbar-section navbar-sections" href="?type=List">List</a>
                     </li>
                 </ul>
             </div>
@@ -70,12 +70,12 @@ $row = mysqli_fetch_assoc($result);
         </div>
     </nav>
 
-    <!-- Catalogue Section -->
-    <section class="catalogue-section text-white">
+    <!-- inventory Section -->
+    <section class="inventory-section text-white">
         <h1>Hello, <?php echo $row['first_name']; ?></h1>
         <div class="product-list text-white">
             <h2>Products</h2>
-            <div class="catalogue-box">
+            <div class="inventory-box">
             </div>
         </div>
 
@@ -84,8 +84,8 @@ $row = mysqli_fetch_assoc($result);
     <!-- Details Section -->
     <section class="detail-section text-danger" hidden>b</section>
 
-    <!-- Cart Section -->
-    <section class="cart-section text-danger" hidden>c</section>
+    <!-- List Section -->
+    <section class="List-section text-danger" hidden>c</section>
 
     <!-- Script -->
     <script src="javascripts/index.js"></script>

@@ -108,7 +108,7 @@ if (isset($_POST["updatePasswordBtn"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/profile.css">
     <link rel="shortcut icon" href="images/inventory.png" type="image/png">
-    <title>Catalogue - Inventory</title>
+    <title>inventory - Inventory</title>
 </head>
 
 <body class="bg-dark text-white">
@@ -125,10 +125,10 @@ if (isset($_POST["updatePasswordBtn"])) {
                 <!-- navbar list -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link catalogue-navbar-section navbar-sections" aria-current="page" href="index.php?type=catalogue">Catalogue</a>
+                        <a class="nav-link inventory-navbar-section navbar-sections" aria-current="page" href="index.php?type=inventory">inventory</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link cart-navbar-section navbar-sections" href="index.php?type=cart">Cart</a>
+                        <a class="nav-link List-navbar-section navbar-sections" href="index.php?type=List">List</a>
                     </li>
                 </ul>
             </div>

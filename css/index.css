@@ -9,10 +9,10 @@ body::-webkit-scrollbar {
 
 /* ------------------------ Main div ------------------------ */
 
-.catalogue-section h1 {
+.inventory-section h1 {
 	margin: 10px 55px;
 }
-.catalogue-box {
+.inventory-box {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
