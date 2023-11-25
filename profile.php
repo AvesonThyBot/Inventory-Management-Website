@@ -87,7 +87,7 @@ if (isset($_POST["updatePasswordBtn"])) {
     if (count(($input_error)) == 0) {
         $password = password_hash($_POST["updatePassword"], CRYPT_BLOWFISH);
         $sql = "UPDATE users
-                SET password_text = '{$_POST["updatePassword"]}'
+                SET password_text = '{$password}'
                 WHERE email = '{$row['email']}'";
         $result = mysqli_query($conn, $sql);
         if ($result) {
@@ -97,6 +97,7 @@ if (isset($_POST["updatePasswordBtn"])) {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>

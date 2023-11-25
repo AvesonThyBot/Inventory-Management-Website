@@ -40,7 +40,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password_text`) VALUES
-(1, 'Aveson', 'b', 'a@gmail.com', 'a'),
+(1, 'Aveson', 'b', 'a@gmail.com', '$2y$10$oDB88pE6jBuwlqs4WJyqGev6/flSb3s6INmAGgwTnmYsx.ai.KD1G'),
 (2, '2', '1', 'ajnkhdf@Gmail.com', '$2y$10$xL49y0Rs/9BUiO48.r4.xe4fCINczvYvsByYrjWf9hTosBSbtjRSe'),
 (3, 'test', 'lasttest', 'test@email.com', '$2y$10$0PMhlneF7vr3DyzIvXc9.u/Y.ppQi/4I.UMrX0ETGuJqSeda0rlNW'),
 (4, 'test', 'teste', 'testes@gmail.com', '$2y$10$MpAuCSlLhdCj6/tHMFgJEulxIB4IQhwfMBjZhuBFhFP02MQCiraPm'),
