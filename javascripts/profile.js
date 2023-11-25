@@ -31,18 +31,19 @@ function updateAlert(alertType) {
 function editToggle(element, button) {
 	// Picking if its password or general
 	if (element.id == "password" || element.id == "password2") {
-		const password2 = document.querySelectorAll(".togglePassword")[1];
+		const button2 = document.querySelectorAll(".togglePassword")[1];
+		const element2 = document.querySelector("#password2");
 		if (element.classList.contains("disable-input")) {
 			// disable input
 			button.textContent = "Save";
-			password2.textContent = "Save";
+			button2.textContent = "Save";
 			element.classList.remove("disable-input");
-			password2.classList.remove("disable-input");
+			element2.classList.remove("disable-input");
 		} else {
 			button.textContent = "Edit";
-			password2.textContent = "Edit";
+			button2.textContent = "Edit";
 			element.classList.add("disable-input");
-			password2.classList.add("disable-input");
+			element2.classList.add("disable-input");
 		}
 	} else {
 		// for general information
@@ -73,13 +74,28 @@ document.getElementById("toggleEmail").onclick = () => {
 };
 
 // Toggle disabled for password and re-enter password
+document.getElementById("currentPasswordEdit").onclick = () => {
+	editToggle(document.getElementById("currentPassword"), document.querySelector("#currentPasswordEdit"));
+};
+
+// Toggle disabled for password and re-enter password
 document.querySelectorAll(".togglePassword").forEach((element) => {
 	element.onclick = () => {
 		editToggle(document.getElementById("password"), document.querySelector(".togglePassword"));
 	};
 });
 
-// Toggle show and hide password
+// Toggle show and hide password (current)
+document.getElementById("toggleCurrentPasswordView").addEventListener("click", function () {
+	const passwordInput = document.getElementById("currentPassword");
+	if (passwordInput.type === "password") {
+		passwordInput.type = "text";
+	} else {
+		passwordInput.type = "password";
+	}
+});
+
+// Toggle show and hide password (new password)
 document.getElementById("togglePasswordView").addEventListener("click", function () {
 	const passwordInput = document.getElementById("password");
 	if (passwordInput.type === "password") {
@@ -89,7 +105,7 @@ document.getElementById("togglePasswordView").addEventListener("click", function
 	}
 });
 
-// Toggle show and hide password
+// Toggle show and hide password (re-enter new password)
 document.getElementById("togglePasswordView2").addEventListener("click", function () {
 	const passwordInput = document.getElementById("password2");
 	if (passwordInput.type === "password") {

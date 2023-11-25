@@ -14,7 +14,7 @@ $row = mysqli_fetch_assoc($result);
 
 // array to handle inputs error and value
 $input_error = [];
-$input_array = array("first" => "", "last" => "", "email" => "", "password" => "", "password2" => "");
+$input_array = array("first" => "", "last" => "", "email" => "", "current_password" => "", "password" => "", "password2" => "");
 // Update general information
 if (isset(($_POST["updateBtn"]))) {
     // Filter first name
@@ -67,21 +67,35 @@ if (isset(($_POST["updateBtn"]))) {
 
 // update password
 if (isset($_POST["updatePasswordBtn"])) {
+    // check if current password is empty or correct 
+    if (empty($_POST["currentPassword"]) || !password_verify($_POST["currentPassword"], $row["password_text"])) {
+        $input_error[] = "current_password";
+    }
+    $input_array["current_password"] = $_POST["currentPassword"];
     // check if password 1 is empty
     if (empty($_POST["updatePassword"])) {
         $input_error[] = "password";
     }
-    var_dump($_POST);
     $input_array["password"] = $_POST["updatePassword"];
+    // check if password 2 doesnt match password 1
+    if ($_POST["updatePassword2"] !== $_POST["updatePassword"]) {
+        $input_error[] = "password2";
+    }
     $input_array["password2"] = $_POST["updatePassword2"];
 
-    // check if both password are same
-
-}
-
-// function for checking password
-function updatePassword($newPassword, $currentPassword, $inputPassword)
-{
+    // run function to check if password can be updated
+    if (count(($input_error)) == 0) {
+        $password = password_hash($_POST["updatePassword"], CRYPT_BLOWFISH);
+        $sql = "UPDATE users
+                SET password_text = '{$_POST["updatePassword"]}'
+                WHERE email = '{$row['email']}'";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            header("Location:profile.php?update=success");
+        } else {
+            header("Location:profile.php?update=failed");
+        }
+    }
 }
 ?>
 
@@ -225,18 +239,27 @@ function updatePassword($newPassword, $currentPassword, $inputPassword)
     <section class="password-section">
         <h2>Update password</h2>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="needs-validation" novalidate>
+            <!-- Current Password -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Password</span>
+                <input value="<?php if (strlen($input_array["current_password"]) > 0) {
+                                    echo $input_array["current_password"];
+                                } ?>" type="password" class="form-control disable-input <?php echo $errorClass = in_array("current_password", $input_error) ? "is-invalid" : (strlen($input_array["current_password"]) > 0 && !in_array("current_password", $input_error) ? "is-valid" : ""); ?>" placeholder="Current Password" name="currentPassword" id="currentPassword" required>
+                <button class="input-group-prepend btn btn-light" type="button" id="toggleCurrentPasswordView">&#128269;</button>
+                <button class="input-group-prepend btn btn-light" type="button" id="currentPasswordEdit">Edit</button>
+                <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
+                    <?php
+                    if (!empty($input_error) && in_array("current_password", $input_error)) {
+                        echo "Password incorrect.";
+                    } ?>
+                </div>
+            </div>
             <!-- New Password -->
             <div class="input-group mb-3 has-validation">
                 <span class="input-group-text">Password</span>
                 <input value="<?php if (strlen($input_array["password"]) > 0) {
                                     echo $input_array["password"];
-                                } ?>" type="password" class="form-control disable-input <?php if (!empty($input_error)) {
-                                                                                            if (in_array("password", $input_error)) {
-                                                                                                echo "is-invalid";
-                                                                                            } else {
-                                                                                                echo "is-valid";
-                                                                                            }
-                                                                                        } ?>" placeholder="Password" name="updatePassword" id="password" required>
+                                } ?>" type="password" class="form-control disable-input <?php echo $errorClass = in_array("password", $input_error) ? "is-invalid" : (strlen($input_array["password"]) > 0 && !in_array("password", $input_error) ? "is-valid" : ""); ?>" placeholder="New Password" name="updatePassword" id="password" required>
                 <button class="input-group-prepend btn btn-light" type="button" id="togglePasswordView">&#128269;</button>
                 <button class="input-group-prepend btn btn-light togglePassword" type="button">Edit</button>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
@@ -251,12 +274,19 @@ function updatePassword($newPassword, $currentPassword, $inputPassword)
                 <span class="input-group-text">Password</span>
                 <input value="<?php if (strlen($input_array["password2"]) > 0) {
                                     echo $input_array["password2"];
-                                } ?>" type="password" class="form-control <?php ?>" placeholder="Re-enter Password" name="updatePassword2" id="password2" required>
+                                } ?>" type="password" class="form-control disable-input <?php echo $errorClass = (in_array("password", $input_error) || in_array("password2", $input_error)) ? "is-invalid" : ((strlen($input_array["password"]) > 0 && !in_array("password", $input_error) && !in_array("password2", $input_error)) ? "is-valid" : ""); ?>" placeholder="Re-enter New Password" name="updatePassword2" id="password2" required>
                 <button class="input-group-prepend btn btn-light" type="button" id="togglePasswordView2">&#128269;</button>
                 <button class="input-group-prepend btn btn-light togglePassword" type="button">Edit</button>
                 <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
                     <?php
+                    if (!empty($input_error) && in_array("password", $input_error)) {
+                        echo "Please enter password.";
+                    }
+                    if (!empty($input_error) && in_array("password2", $input_error)) {
+                        echo "Password does not match.";
+                    }
                     ?>
+
                 </div>
             </div>
             <!-- Submit -->
