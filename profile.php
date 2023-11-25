@@ -14,7 +14,7 @@ $row = mysqli_fetch_assoc($result);
 
 // array to handle inputs error and value
 $input_error = [];
-$input_array = array("first" => "", "last" => "", "email" => "");
+$input_array = array("first" => "", "last" => "", "email" => "", "password" => "", "password2" => "");
 // Update general information
 if (isset(($_POST["updateBtn"]))) {
     // Filter first name
@@ -63,6 +63,25 @@ if (isset(($_POST["updateBtn"]))) {
             header("Location:profile.php?update=failed");
         }
     }
+}
+
+// update password
+if (isset($_POST["updatePasswordBtn"])) {
+    // check if password 1 is empty
+    if (empty($_POST["updatePassword"])) {
+        $input_error[] = "password";
+    }
+    var_dump($_POST);
+    $input_array["password"] = $_POST["updatePassword"];
+    $input_array["password2"] = $_POST["updatePassword2"];
+
+    // check if both password are same
+
+}
+
+// function for checking password
+function updatePassword($newPassword, $currentPassword, $inputPassword)
+{
 }
 ?>
 
@@ -205,11 +224,46 @@ if (isset(($_POST["updateBtn"]))) {
     <!-- Update password in profile -->
     <section class="password-section">
         <h2>Update password</h2>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Password</span>
-            <input type="password" class="form-control" id="password" value="<?php echo $row["password_text"] ?>" disabled>
-            <button class="input-group-prepend btn btn-light" type="button" id="togglePassword">&#128269;</button>
-        </div>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="needs-validation" novalidate>
+            <!-- New Password -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Password</span>
+                <input value="<?php if (strlen($input_array["password"]) > 0) {
+                                    echo $input_array["password"];
+                                } ?>" type="password" class="form-control disable-input <?php if (!empty($input_error)) {
+                                                                                            if (in_array("password", $input_error)) {
+                                                                                                echo "is-invalid";
+                                                                                            } else {
+                                                                                                echo "is-valid";
+                                                                                            }
+                                                                                        } ?>" placeholder="Password" name="updatePassword" id="password" required>
+                <button class="input-group-prepend btn btn-light" type="button" id="togglePasswordView">&#128269;</button>
+                <button class="input-group-prepend btn btn-light togglePassword" type="button">Edit</button>
+                <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
+                    <?php
+                    if (!empty($input_error) && in_array("password", $input_error)) {
+                        echo "Please enter password.";
+                    } ?>
+                </div>
+            </div>
+            <!-- Re-enter Password -->
+            <div class="input-group mb-3 has-validation">
+                <span class="input-group-text">Password</span>
+                <input value="<?php if (strlen($input_array["password2"]) > 0) {
+                                    echo $input_array["password2"];
+                                } ?>" type="password" class="form-control <?php ?>" placeholder="Re-enter Password" name="updatePassword2" id="password2" required>
+                <button class="input-group-prepend btn btn-light" type="button" id="togglePasswordView2">&#128269;</button>
+                <button class="input-group-prepend btn btn-light togglePassword" type="button">Edit</button>
+                <div class="invalid-feedback invalid-password"> <!-- Invalid input-->
+                    <?php
+                    ?>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div>
+                <button class="btn btn-outline-light float-end" type="submit" name="updatePasswordBtn">Update Password</button>
+            </div>
+        </form>
     </section>
 
 

@@ -29,13 +29,31 @@ function updateAlert(alertType) {
 
 // function to enable and disable input element
 function editToggle(element, button) {
-	if (element.classList.contains("disable-input")) {
-		// disable input
-		button.textContent = "Save";
-		element.classList.remove("disable-input");
+	// Picking if its password or general
+	if (element.id == "password" || element.id == "password2") {
+		const password2 = document.querySelectorAll(".togglePassword")[1];
+		if (element.classList.contains("disable-input")) {
+			// disable input
+			button.textContent = "Save";
+			password2.textContent = "Save";
+			element.classList.remove("disable-input");
+			password2.classList.remove("disable-input");
+		} else {
+			button.textContent = "Edit";
+			password2.textContent = "Edit";
+			element.classList.add("disable-input");
+			password2.classList.add("disable-input");
+		}
 	} else {
-		button.textContent = "Edit";
-		element.classList.add("disable-input");
+		// for general information
+		if (element.classList.contains("disable-input")) {
+			// disable input
+			button.textContent = "Save";
+			element.classList.remove("disable-input");
+		} else {
+			button.textContent = "Edit";
+			element.classList.add("disable-input");
+		}
 	}
 }
 
@@ -54,15 +72,30 @@ document.getElementById("toggleEmail").onclick = () => {
 	editToggle(document.getElementById("email"), document.getElementById("email").nextElementSibling);
 };
 
+// Toggle disabled for password and re-enter password
+document.querySelectorAll(".togglePassword").forEach((element) => {
+	element.onclick = () => {
+		editToggle(document.getElementById("password"), document.querySelector(".togglePassword"));
+	};
+});
+
 // Toggle show and hide password
-document.getElementById("togglePassword").addEventListener("click", function () {
+document.getElementById("togglePasswordView").addEventListener("click", function () {
 	const passwordInput = document.getElementById("password");
 	if (passwordInput.type === "password") {
 		passwordInput.type = "text";
-		passwordInput.toggleAttribute("disabled");
 	} else {
 		passwordInput.type = "password";
-		passwordInput.toggleAttribute("disabled");
+	}
+});
+
+// Toggle show and hide password
+document.getElementById("togglePasswordView2").addEventListener("click", function () {
+	const passwordInput = document.getElementById("password2");
+	if (passwordInput.type === "password") {
+		passwordInput.type = "text";
+	} else {
+		passwordInput.type = "password";
 	}
 });
 
